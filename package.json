@@ -1,0 +1,21 @@
+{
+  "name": "devops-for-developers-project-74",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/maryVorob3/devops-for-developers-project-74/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/maryVorob3/devops-for-developers-project-74/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maryVorob3/devops-for-developers-project-74.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maryVorob3/devops-for-developers-project-74/issues"
+  },
+  "homepage": "https://github.com/maryVorob3/devops-for-developers-project-74#readme"
+}

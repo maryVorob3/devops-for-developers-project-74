@@ -1,0 +1,11 @@
+services:
+  app:
+    ports:
+     - "8080:8080"
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+    environment:
+      NODE_ENV: development
+    command: make dev
