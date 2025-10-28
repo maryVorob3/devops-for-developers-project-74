@@ -1,12 +1,13 @@
-name: push
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
+      - master
 
 env:
-  .CI: true
+  CI: true
   APP_IMAGE_NAME: gyfdhsjb/devops-for-developers-project-74
   NGINX_IMAGE_NAME: gyfdhsjb/devops-for-developers-project-74-nginx
   COLOR_MAP: '{"success":"#008000","failure":"#800000"}'
@@ -15,7 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
       - uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
@@ -27,31 +27,39 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build App
+      # НОВЫЙ ШАГ: Явно пересобрать образ для тестов без кэша
+      # Это гарантирует, что ваш основной Dockerfile (который используется для тестов)
+      # будет перестроен с учетом ENV PATH.
+      - name: Build App Image for Tests (no cache)
+        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml build --no-cache app
+        # Убедитесь, что docker-compose.yml и docker-compose.override.yml находятся в корне репозитория.
+
+      # Шаг 2: Запустить тесты
+      # make ci (который вызывает make test) теперь будет использовать
+      # только что построенный образ из предыдущего шага.
+      - name: Run tests
+        run: make ci
+
+      # Шаг 3: Сборка и отправка продакшн образа (если нужно)
+      # Этот шаг использует Dockerfile.production и кэш.
+      # Оставляем его как есть, так как он для продакшена.
+      - name: Build App (Production)
         uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile.production
           cache-from: type=registry,ref=${{ env.APP_IMAGE_NAME }}:latest
-          cache-to: type=inline
           push: true
           tags: ${{ env.APP_IMAGE_NAME }}:latest
 
-      - name: Run tests
-        run: make ci
-
+      # ... (остальные шаги, как Build Nginx и Slack notification)
       - name: Build Nginx
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: true
           file: services/web-nginx/Dockerfile
+          push: true
           tags: ${{ env.NGINX_IMAGE_NAME }}:latest
 
       #- name: Send notification into Slack
-       # if: ${{ always() }}
-       # uses: rtCamp/action-slack-notify@v2
-       # env:
-        #  SLACK_COLOR: ${{ fromJson(env.COLOR_MAP)[job.status] }}
-        #  SLACK_TITLE: ${{ job.status }}
-        #  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        # ... (ваши настройки Slack) ...
