@@ -32,4 +32,4 @@ prod-down:
 	docker compose -f docker-compose.yml down
 
 ci:
-	make test
+	$(MAKE) test

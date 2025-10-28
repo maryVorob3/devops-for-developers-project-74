@@ -4,11 +4,11 @@ WORKDIR /app
 ENV NPM_CONFIG_CACHE=/tmp/.npm
 ENV NODE_ENV=development
 
-COPY app/package.json package.json
-COPY app/package-lock.json package-lock.json 
+COPY app/package.json app/package-lock.json ./
+#COPY app/package-lock.json package-lock.json 
 RUN npm ci
-RUN npm install -g sequelize-cli
+#RUN npm install -g sequelize-cli
 
-COPY app/. .
+COPY app/. ./
 EXPOSE 8080
 CMD ["make", "dev"]
