@@ -31,7 +31,7 @@ jobs:
       # Это гарантирует, что ваш основной Dockerfile (который используется для тестов)
       # будет перестроен с учетом ENV PATH.
       - name: Build App Image for Tests (no cache)
-        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml build --no-cache app
+        run: docker compose -f docker-compose.yml -f docker-compose.override.yml build --no-cache app
         # Убедитесь, что docker-compose.yml и docker-compose.override.yml находятся в корне репозитория.
 
       # Шаг 2: Запустить тесты
