@@ -17,7 +17,7 @@ ansible-generate-env:
 
 test:
 	NODE_ENV=test docker compose -f docker-compose.yml -f docker-compose.override.yml run --rm app npm run pretest && \
-	NODE_ENV=test docker compose -f docker-compose.yml -f docker-compose.override.yml run --rm app npm test
+	NODE_ENV=test docker compose -f docker-compose.yml -f docker-compose.override.yml run --rm --build app npm run test
 
 dev-up:
 	docker compose -f docker-compose.yml -f docker-compose.override.yml up --build -d
