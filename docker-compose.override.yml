@@ -3,7 +3,7 @@ services:
     ports:
      - "8080:8080"
     build:
-      dockerfile: Dockerfile
+      dockerfile: app/Dockerfile
     volumes:
       - ./app:/app
     environment:
