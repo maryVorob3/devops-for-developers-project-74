@@ -4,6 +4,4 @@ services:
       context: .
       dockerfile: Dockerfile.production
     image: gyfdhsjb/devops-for-developers-project-74:latest
-    ports:
-      - "8080:8080"
     command: make start

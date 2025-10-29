@@ -5,7 +5,6 @@ ENV NPM_CONFIG_CACHE=/tmp/.npm
 ENV NODE_ENV=development
 
 COPY app/package.json app/package-lock.json ./
-#COPY app/package-lock.json package-lock.json 
 RUN npm ci
 
 ENV PATH="/app/node_modules/.bin:${PATH}" 
