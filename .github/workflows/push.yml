@@ -6,11 +6,11 @@ on:
       - main
       - master
 
-env:
-  CI: true
-  APP_IMAGE_NAME: gyfdhsjb/devops-for-developers-project-74
-  NGINX_IMAGE_NAME: gyfdhsjb/devops-for-developers-project-74-nginx
-  COLOR_MAP: '{"success":"#008000","failure":"#800000"}'
+#env:
+ # CI: true
+  #APP_IMAGE_NAME: gyfdhsjb/devops-for-developers-project-74
+  #NGINX_IMAGE_NAME: gyfdhsjb/devops-for-developers-project-74-nginx
+  #COLOR_MAP: '{"success":"#008000","failure":"#800000"}'
 
 jobs:
   build:
@@ -53,13 +53,13 @@ jobs:
           tags: ${{ env.APP_IMAGE_NAME }}:latest
 
       # ... (остальные шаги, как Build Nginx и Slack notification)
-      - name: Build Nginx
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: services/web-nginx/Dockerfile
-          push: true
-          tags: ${{ env.NGINX_IMAGE_NAME }}:latest
+      #- name: Build Nginx
+       # uses: docker/build-push-action@v3
+        #with:
+         # context: .
+          #file: services/web-nginx/Dockerfile
+          #push: true
+          #tags: ${{ env.NGINX_IMAGE_NAME }}:latest
 
       #- name: Send notification into Slack
         # ... (ваши настройки Slack) ...
