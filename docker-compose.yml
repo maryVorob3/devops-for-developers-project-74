@@ -5,3 +5,18 @@ services:
       dockerfile: Dockerfile.production
     image: gyfdhsjb/devops-for-developers-project-74:latest
     command: make start
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres       # Пользователь
+      POSTGRES_PASSWORD: password   # Пароль
+      POSTGRES_DB: hexlet           # Имя базы данных
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
